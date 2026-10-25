@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext'
-import { getIdeas, deleteIdea } from '../services/api'
+import { getIdeas } from '../services/api'
 import IdeaCard from '../components/IdeaCard'
 
 const IdeaBoard = () => {
@@ -55,14 +55,19 @@ const IdeaBoard = () => {
   return (
     <>
       <header className="board-header">
-        <div>
+        <div className='board-header-text'>
           <h1>Your IdeaScape Board</h1>
-          <p>Welcome, {user?.username}!</p>
+          <div>Welcome, {user?.username}!</div>
         </div>
+        <div className="board-header-actions">
+          <button onClick={() => navigate('/ideas/new')}>
+            + Create Idea
+          </button>
 
-        <button onClick={handleLogout}>
-          Log out
-        </button>
+          <button onClick={handleLogout}>
+            Log out
+          </button>
+        </div>
       </header>
 
       <div className="idea-board">
@@ -77,7 +82,6 @@ const IdeaBoard = () => {
           <IdeaCard
             key={idea._id}
             idea={idea}
-            onDelete={handleDelete}
           />
         ))}
       </div>

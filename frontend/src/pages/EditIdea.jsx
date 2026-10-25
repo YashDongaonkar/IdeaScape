@@ -71,37 +71,78 @@ const EditIdea = () => {
   }
 
   if (isLoading) {
-    return <p>Loading idea...</p>
+    return (
+      <main className="create-idea-page">
+        <div className="create-idea-container">
+          <p>Loading idea...</p>
+        </div>
+      </main>
+    )
   }
 
   if (error && !idea) {
     return (
-      <div>
-        <p role="alert">{error}</p>
-        <button onClick={() => navigate('/board')}>
-          Back to board
-        </button>
-      </div>
+      <main className="create-idea-page">
+        <div className="create-idea-container">
+          <p className="create-idea-error" role="alert">{error}</p>
+          <button
+            className="back-to-board-button"
+            onClick={() => navigate('/board')}
+          >
+            ← Back to board
+          </button>
+        </div>
+      </main>
     )
   }
 
   if (!idea) {
-    return <p>Idea not found.</p>
+    return (
+      <main className="create-idea-page">
+        <div className="create-idea-container">
+          <p>Idea not found.</p>
+          <button
+            className="back-to-board-button"
+            onClick={() => navigate('/board')}
+          >
+            ← Back to board
+          </button>
+        </div>
+      </main>
+    )
   }
 
   return (
-    <div>
-      <h1>Edit idea</h1>
+    <main className="create-idea-page">
+      <div className="create-idea-container">
+        <button
+          className="back-to-board-button"
+          onClick={() => navigate('/board')}
+        >
+          ← Back to board
+        </button>
 
-      {error && <p role="alert">{error}</p>}
+        <h1>Edit your idea</h1>
+        <p className="create-idea-subtitle">
+          Refine the thought. Change the plan. Keep the possibility.
+        </p>
 
-      <IdeaForm
-        key={idea._id}
-        initialData={idea}
-        onSubmit={handleSubmit}
-        isLoading={isSaving}
-      />
-    </div>
+        {error && (
+          <p className="create-idea-error" role="alert">
+            {error}
+          </p>
+        )}
+
+        <div className="create-idea-form-card">
+          <IdeaForm
+            key={idea._id}
+            initialData={idea}
+            onSubmit={handleSubmit}
+            isLoading={isSaving}
+          />
+        </div>
+      </div>
+    </main>
   )
 }
 

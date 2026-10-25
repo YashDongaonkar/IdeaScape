@@ -53,14 +53,29 @@ const CreateIdea = () => {
   }
 
   return (
-    <div>
-      <h1>Create an idea</h1>
+    <main className="create-idea-page">
+      <div className="create-idea-container">
+        <button
+          className="back-to-board-button"
+          onClick={() => navigate('/board')}
+        >
+          ← Back to board
+        </button>
 
-      {error && <p role="alert">{error}</p>}
+        <h1>Create an idea</h1>
+        <p className="create-idea-subtitle">
+          Capture that thought before it gets away.
+        </p>
 
-      <IdeaForm onSubmit={handleSubmit} isLoading={isLoading} />
-    </div>
+        {error && <p className="create-idea-error" role="alert">{error}</p>}
+
+        <div className="create-idea-form-card">
+          <IdeaForm onSubmit={handleSubmit} isLoading={isLoading} />
+        </div>
+      </div>
+    </main>
   )
+
 }
 
 export default CreateIdea

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { apiRequest } from '../services/api'
 import { useAuth } from '../context/AuthContext'
 
@@ -25,6 +25,7 @@ const Login = () => {
           password,
         }),
       })
+
       login(data.accessToken, data.user)
       navigate('/board')
     } catch (error) {
@@ -35,37 +36,71 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h1>Welcome to IdeaScape</h1>
+    <main className="auth-page">
+      <section className="auth-card">
+        <Link to="/" className="auth-brand">
+          IdeaScape<span>.</span>
+        </Link>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+        <p className="auth-eyebrow">YOUR IDEAS, YOUR SPACE</p>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Log in'}
-        </button>
-        {message && <p role="status">{message}</p>}
-      </form>
-    </div>
+        <h1>Welcome back.</h1>
+
+        <p className="auth-subtitle">
+          Pick up where your imagination left off.
+        </p>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="auth-field">
+            <label htmlFor="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              required
+            />
+          </div>
+
+          <div className="auth-field">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+              required
+            />
+          </div>
+
+          {message && (
+            <p className="auth-message" role="alert">
+              {message}
+            </p>
+          )}
+
+          <button
+            className="auth-submit-button"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Logging in...' : 'Log in'}
+          </button>
+        </form>
+
+        <p className="auth-switch">
+          New to IdeaScape? <Link to="/signup">Create an account</Link>
+        </p>
+      </section>
+
+      <p className="auth-footer">
+        A landscape of possibilities.
+      </p>
+    </main>
   )
 }
 

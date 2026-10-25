@@ -79,73 +79,76 @@ const IdeaForm = ({ initialData, onSubmit, isLoading = false }) => {
         />
       </div>
 
-      <fieldset>
-        <legend>Links</legend>
+      
+      <section className="idea-form-section">
+        <h2 className="idea-form-section-title">Links</h2>
 
         {links.map((link, index) => (
-          <div key={index}>
+          <div className="idea-form-item" key={index}>
             <label>
               URL
               <input
                 type="url"
                 value={link.url}
-                onChange={(e) =>
-                  updateLink(index, 'url', e.target.value)
-                }
+                onChange={(e) => updateLink(index, 'url', e.target.value)}
               />
             </label>
 
             <label>
-              Label
+              Label <span className="optional-label">(optional)</span>
               <input
                 type="text"
                 value={link.label}
-                onChange={(e) =>
-                  updateLink(index, 'label', e.target.value)
-                }
+                onChange={(e) => updateLink(index, 'label', e.target.value)}
               />
             </label>
 
             <label>
-              Note
+              Note <span className="optional-label">(optional)</span>
               <input
                 type="text"
                 value={link.note}
-                onChange={(e) =>
-                  updateLink(index, 'note', e.target.value)
-                }
+                onChange={(e) => updateLink(index, 'note', e.target.value)}
               />
             </label>
 
-            <button type="button" onClick={() => removeLink(index)}>
+            <button
+              className="idea-form-remove-button"
+              type="button"
+              onClick={() => removeLink(index)}
+            >
               Remove link
             </button>
           </div>
         ))}
 
-        <button type="button" onClick={addLink}>
-          Add link
+        <button
+          className="idea-form-secondary-button"
+          type="button"
+          onClick={addLink}
+        >
+          + Add link
         </button>
-      </fieldset>
+      </section>
 
-      <fieldset>
-        <legend>Checklist</legend>
+            
+      <section className="idea-form-section">
+        <h2 className="idea-form-section-title">Checklist</h2>
 
         {tasks.map((task, index) => (
-          <div key={index}>
+          <div className="idea-form-item" key={index}>
             <label>
               Task
               <input
                 type="text"
                 value={task.text}
-                onChange={(e) =>
-                  updateTask(index, 'text', e.target.value)
-                }
+                onChange={(e) => updateTask(index, 'text', e.target.value)}
               />
             </label>
 
             <label>
               Duration (minutes)
+              <span className="optional-label"> (optional)</span>
               <input
                 type="number"
                 min="0"
@@ -156,16 +159,24 @@ const IdeaForm = ({ initialData, onSubmit, isLoading = false }) => {
               />
             </label>
 
-            <button type="button" onClick={() => removeTask(index)}>
+            <button
+              className="idea-form-remove-button"
+              type="button"
+              onClick={() => removeTask(index)}
+            >
               Remove task
             </button>
           </div>
         ))}
 
-        <button type="button" onClick={addTask}>
-          Add task
+        <button
+          className="idea-form-secondary-button"
+          type="button"
+          onClick={addTask}
+        >
+          + Add task
         </button>
-      </fieldset>
+      </section>
 
       <div>
         <label htmlFor="color">Sticky-note color</label>

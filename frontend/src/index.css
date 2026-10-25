@@ -1,0 +1,120 @@
+
+/* Global reset */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #faf8f3;
+  color: #292929;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Board header */
+.board-header {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px;
+  background-color: #faf8f3;
+  flex: 0 0 auto;
+}
+
+.board-header h1 {
+  margin: 0 0 8px;
+}
+
+.board-header p {
+  margin: 0;
+}
+
+.board-header button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #292929;
+  color: white;
+  cursor: pointer;
+}
+
+.board-header button:hover {
+  background-color: #444;
+}
+
+/* Idea board fills the remaining viewport */
+.idea-board {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 24px;
+}
+
+/* Sticky note */
+.idea-card {
+  width: 220px;
+  min-height: 180px;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 3px 5px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  position: absolute;
+  transform: rotate(var(--note-rotation, 0deg));
+  transition: box-shadow 0.2s ease;
+}
+
+.idea-card:hover {
+  z-index: 10;
+  transform: rotate(var(--note-rotation, 0deg)) scale(1.04);
+  box-shadow: 6px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.idea-card h2 {
+  margin-top: 0;
+  overflow-wrap: anywhere;
+}
+
+.idea-card p {
+  overflow-wrap: anywhere;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .board-header {
+    padding: 20px 16px;
+    gap: 12px;
+  }
+
+  .board-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .board-header button {
+    padding: 8px 12px;
+    flex-shrink: 0;
+  }
+
+  .idea-board {
+    padding: 16px;
+  }
+
+  .idea-card {
+    width: 200px;
+  }
+}

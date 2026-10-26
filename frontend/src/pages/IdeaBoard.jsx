@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext'
@@ -26,6 +27,8 @@ const IdeaBoard = () => {
 
     if (accessToken) {
       fetchIdeas()
+    } else {
+      setIsLoading(false)
     }
   }, [accessToken])
 
@@ -34,32 +37,36 @@ const IdeaBoard = () => {
     navigate('/login', { replace: true })
   }
 
-  const handleDelete = async (id) => {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete this idea?'
-    )
+  const handleSurpriseMe = () => {
+    if (ideas.length === 0) return
 
-    if (!confirmed) return
+    const randomIndex = Math.floor(Math.random() * ideas.length)
+    const randomIdea = ideas[randomIndex]
 
-    try {
-      await deleteIdea(id, accessToken)
-
-      setIdeas((currentIdeas) =>
-        currentIdeas.filter((idea) => idea._id !== id)
-      )
-    } catch (error) {
-      setError(error.message)
-    }
+    navigate(`/ideas/${randomIdea._id}`)
   }
-  
+
   return (
     <>
       <header className="board-header">
-        <div className='board-header-text'>
+        <div className="board-header-text">
           <h1>Your IdeaScape Board</h1>
           <div>Welcome, {user?.username}!</div>
         </div>
+
         <div className="board-header-actions">
+          <button
+            onClick={handleSurpriseMe}
+            disabled={isLoading || ideas.length === 0}
+            title={
+              ideas.length === 0
+                ? 'Create an idea first!'
+                : 'Open a random idea'
+            }
+          >
+            Surprise Me
+          </button>
+
           <button onClick={() => navigate('/ideas/new')}>
             + Create Idea
           </button>
@@ -79,10 +86,7 @@ const IdeaBoard = () => {
         )}
 
         {ideas.map((idea) => (
-          <IdeaCard
-            key={idea._id}
-            idea={idea}
-          />
+          <IdeaCard key={idea._id} idea={idea} />
         ))}
       </div>
     </>
